@@ -1,4 +1,4 @@
-{ name = "purescript-typelevel-rowlist-limits"
+{ name = "typelevel-rowlist-limits"
 , dependencies = [ "typelevel-peano" ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
