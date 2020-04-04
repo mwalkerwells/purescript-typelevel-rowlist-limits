@@ -123,6 +123,20 @@ let upstream =
 
 let overrides = {=}
 
-let additions = {=}
+let additions =
+  { typelevel-peano =
+    { dependencies =
+      [ "unsafe-coerce"
+      , "arrays"
+      , "console"
+      , "effect"
+      , "typelevel-prelude"
+      , "prelude"
+      , "psci-support"
+      ]
+    , repo = "https://github.com/csicar/purescript-typelevel-peano.git"
+    , version = "v0.1.8"
+  }
+}
 
 in  upstream // overrides // additions
