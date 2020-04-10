@@ -1,5 +1,6 @@
 module Type.RowList.Limits.TypeAliases
-  ( One
+  ( Zero
+  , One
   , Two
   , Three
   , Four
@@ -12,7 +13,8 @@ module Type.RowList.Limits.TypeAliases
   ) where
 
 import Type.Data.Peano
-  ( P1
+  ( P0
+  , P1
   , P2
   , P3
   , P4
@@ -24,6 +26,7 @@ import Type.Data.Peano
   , P10
   )
     
+type Zero = P0
 type One = P1
 type Two = P2
 type Three = P3

@@ -21,7 +21,7 @@ import Type.Data.Peano (kind Int, Pos, Z, Succ, P0, P1, P2, P3, P4, P5, P6, P7, 
 
 {- Example
 
--- Using: class LimitCount
+Using: class LimitCount
 
 oneRow1a :: forall r rl. RowToList r rl => LimitCount One rl => { | r } -> String
 oneRow1a = ...
@@ -31,7 +31,7 @@ oneRow1a = ...
 ... oneRow1a { a: 1, b: 2 } -- Error: "Could not match type"
 
 
--- Using Alias: class LimitCountThree
+Using Alias: class LimitCountThree
 
 oneRow1b :: forall r rl. RowToList r rl => LimitCountThree rl => { | r } -> String
 oneRow1b = ...
@@ -44,8 +44,7 @@ oneRow1b = ...
 
 -}
 
--- There is only one RowList match for each count
-class LimitCount (count :: Int) (rl :: RowList) | count -> rl
+class LimitCount (count :: Int) (rl :: RowList)
 
 -- Zero "Empty"
 instance zeroLimitRow :: LimitCount (Pos Z) Nil
@@ -59,7 +58,8 @@ instance zeroLimitCountEmpty :: LimitCountEmpty Nil
 -- One
 instance oneConsLimitCountOne  :: LimitCount (Pos (Succ Z))
   (Cons l1 t1 Nil)
-else instance zeroConsLimitCountOne  :: LimitCount (Pos (Succ Z))
+else
+instance zeroConsLimitCountOne  :: LimitCount (Pos (Succ Z))
   Nil
 
 class LimitCountOne (rl :: RowList)
@@ -73,9 +73,11 @@ instance twoConsLimitCountTwo  :: LimitCount (Pos (Succ (Succ Z)))
   (Cons l1 t1
     (Cons l2 t2 Nil)
   )
-else instance oneConsLimitCountTwo  :: LimitCount (Pos (Succ (Succ Z)))
+else
+instance oneConsLimitCountTwo  :: LimitCount (Pos (Succ (Succ Z)))
   (Cons l1 t1 Nil)
-else instance zeroConsLimitCountTwo  :: LimitCount (Pos (Succ (Succ Z)))
+else
+instance zeroConsLimitCountTwo  :: LimitCount (Pos (Succ (Succ Z)))
   Nil
 
 class LimitCountTwo (rl :: RowList)
@@ -94,13 +96,16 @@ instance threeConsLimitCountThree  :: LimitCount (Pos (Succ (Succ (Succ Z))))
     (Cons l2 t2
       (Cons l3 t3 Nil)
   ))
-else instance twoConsLimitCountThree  :: LimitCount (Pos (Succ (Succ (Succ Z))))
+else
+instance twoConsLimitCountThree  :: LimitCount (Pos (Succ (Succ (Succ Z))))
   (Cons l1 t1
     (Cons l2 t2 Nil)
   )
-else instance oneConsLimitCountThree  :: LimitCount (Pos (Succ (Succ (Succ Z))))
+else
+instance oneConsLimitCountThree  :: LimitCount (Pos (Succ (Succ (Succ Z))))
   (Cons l1 t1 Nil)
-else instance zeroConsLimitCountThree  :: LimitCount (Pos (Succ (Succ (Succ Z))))
+else
+instance zeroConsLimitCountThree  :: LimitCount (Pos (Succ (Succ (Succ Z))))
   Nil
 
 class LimitCountThree (rl :: RowList)
@@ -125,18 +130,22 @@ instance fourConsLimitCountFour  :: LimitCount (Pos (Succ (Succ (Succ (Succ Z)))
       (Cons l3 t3
         (Cons l4 t4 Nil)
   )))
-else instance threeConsLimitCountFour  :: LimitCount (Pos (Succ (Succ (Succ (Succ Z)))))
+else
+instance threeConsLimitCountFour  :: LimitCount (Pos (Succ (Succ (Succ (Succ Z)))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3 Nil)
   ))
-else instance twoConsLimitCountFour  :: LimitCount (Pos (Succ (Succ (Succ (Succ Z)))))
+else
+instance twoConsLimitCountFour  :: LimitCount (Pos (Succ (Succ (Succ (Succ Z)))))
   (Cons l1 t1
     (Cons l2 t2 Nil)
   )
-else instance oneConsLimitCountFour  :: LimitCount (Pos (Succ (Succ (Succ (Succ Z)))))
+else
+instance oneConsLimitCountFour  :: LimitCount (Pos (Succ (Succ (Succ (Succ Z)))))
   (Cons l1 t1 Nil)
-else instance zeroConsLimitCountFour  :: LimitCount (Pos (Succ (Succ (Succ (Succ Z)))))
+else
+instance zeroConsLimitCountFour  :: LimitCount (Pos (Succ (Succ (Succ (Succ Z)))))
   Nil
 
 class LimitCountFour (rl :: RowList)
@@ -168,24 +177,29 @@ instance fiveConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Suc
         (Cons l4 t4
           (Cons l5 t5 Nil)
   ))))
-else instance fourConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ Z))))))
+else
+instance fourConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ Z))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4 Nil)
   )))
-else instance threeConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ Z))))))
+else
+instance threeConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ Z))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3 Nil)
   ))
-else instance twoConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ Z))))))
+else
+instance twoConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ Z))))))
   (Cons l1 t1
     (Cons l2 t2 Nil)
   )
-else instance oneConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ Z))))))
+else
+instance oneConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ Z))))))
   (Cons l1 t1 Nil)
-else instance zeroConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ Z))))))
+else
+instance zeroConsLimitCountFive  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ Z))))))
   Nil
 
 class LimitCountFive (rl :: RowList)
@@ -225,31 +239,37 @@ instance sixConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ 
           (Cons l5 t5
             (Cons l6 t6 Nil)
   )))))
-else instance fiveConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
+else
+instance fiveConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4
           (Cons l5 t5 Nil)
   ))))
-else instance fourConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
+else
+instance fourConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4 Nil)
   )))
-else instance threeConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
+else
+instance threeConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3 Nil)
   ))
-else instance twoConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
+else
+instance twoConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
   (Cons l1 t1
     (Cons l2 t2 Nil)
   )
-else instance oneConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
+else
+instance oneConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
   (Cons l1 t1 Nil)
-else instance zeroConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
+else
+instance zeroConsLimitCountSix  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))
   Nil
 
 class LimitCountSix (rl :: RowList)
@@ -298,7 +318,8 @@ instance sevenConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (S
             (Cons l6 t6
               (Cons l7 t7 Nil)
   ))))))
-else instance sixConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
+else
+instance sixConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
@@ -306,31 +327,37 @@ else instance sixConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ
           (Cons l5 t5
             (Cons l6 t6 Nil)
   )))))
-else instance fiveConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
+else
+instance fiveConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4
           (Cons l5 t5 Nil)
   ))))
-else instance fourConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
+else
+instance fourConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4 Nil)
   )))
-else instance threeConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
+else
+instance threeConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3 Nil)
   ))
-else instance twoConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
+else
+instance twoConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
   (Cons l1 t1
     (Cons l2 t2 Nil)
   )
-else instance oneConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
+else
+instance oneConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
   (Cons l1 t1 Nil)
-else instance zeroConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
+else
+instance zeroConsLimitCountSeven  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))
   Nil
 
 class LimitCountSeven (rl :: RowList)
@@ -389,7 +416,8 @@ instance eightConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (S
               (Cons l7 t7
                 (Cons l8 t8 Nil)
   )))))))
-else instance sevenConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
+else
+instance sevenConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
@@ -398,7 +426,8 @@ else instance sevenConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Su
             (Cons l6 t6
               (Cons l7 t7 Nil)
   ))))))
-else instance sixConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
+else
+instance sixConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
@@ -406,34 +435,38 @@ else instance sixConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ
           (Cons l5 t5
             (Cons l6 t6 Nil)
   )))))
-else instance fiveConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
+else
+instance fiveConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4
           (Cons l5 t5 Nil)
   ))))
-else instance fourConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
+else
+instance fourConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4 Nil)
   )))
-else instance threeConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
+else
+instance threeConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3 Nil)
   ))
-else instance twoConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
+else
+instance twoConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
   (Cons l1 t1
     (Cons l2 t2 Nil)
   )
-else instance oneConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
+else
+instance oneConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
   (Cons l1 t1 Nil)
-else instance zeroConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
+else
+instance zeroConsLimitCountEight  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))
   Nil
-
- 
 
 class LimitCountEight (rl :: RowList)
 instance zeroConsLimitCountEightAlias  :: LimitCountEight
@@ -502,7 +535,8 @@ instance nineConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Suc
                 (Cons l8 t8
                   (Cons l9 t9 Nil)
   ))))))))
-else instance eightConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
+else
+instance eightConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
@@ -512,7 +546,8 @@ else instance eightConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Suc
               (Cons l7 t7
                 (Cons l8 t8 Nil)
   )))))))
-else instance sevenConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
+else
+instance sevenConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
@@ -521,7 +556,8 @@ else instance sevenConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Suc
             (Cons l6 t6
               (Cons l7 t7 Nil)
   ))))))
-else instance sixConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
+else
+instance sixConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
@@ -529,31 +565,37 @@ else instance sixConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ 
           (Cons l5 t5
             (Cons l6 t6 Nil)
   )))))
-else instance fiveConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
+else
+instance fiveConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4
           (Cons l5 t5 Nil)
   ))))
-else instance fourConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
+else
+instance fourConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4 Nil)
   )))
-else instance threeConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
+else
+instance threeConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3 Nil)
   ))
-else instance twoConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
+else
+instance twoConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
   (Cons l1 t1
     (Cons l2 t2 Nil)
   )
-else instance oneConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
+else
+instance oneConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
   (Cons l1 t1 Nil)
-else instance zeroConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
+else
+instance zeroConsLimitCountNine  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z))))))))))
   Nil
 
 class LimitCountNine (rl :: RowList)
@@ -635,7 +677,8 @@ instance tenConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ 
                   (Cons l9 t9
                     (Cons l10 t10 Nil)
   )))))))))
-else instance nineConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
+else
+instance nineConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
@@ -646,7 +689,8 @@ else instance nineConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ 
                 (Cons l8 t8
                   (Cons l9 t9 Nil)
   ))))))))
-else instance eightConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
+else
+instance eightConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
@@ -656,7 +700,8 @@ else instance eightConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ
               (Cons l7 t7
                 (Cons l8 t8 Nil)
   )))))))
-else instance sevenConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
+else
+instance sevenConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
@@ -665,7 +710,8 @@ else instance sevenConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ
             (Cons l6 t6
               (Cons l7 t7 Nil)
   ))))))
-else instance sixConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
+else
+instance sixConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
@@ -673,31 +719,37 @@ else instance sixConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (
           (Cons l5 t5
             (Cons l6 t6 Nil)
   )))))
-else instance fiveConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
+else
+instance fiveConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4
           (Cons l5 t5 Nil)
   ))))
-else instance fourConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
+else
+instance fourConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3
         (Cons l4 t4 Nil)
   )))
-else instance threeConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
+else
+instance threeConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
   (Cons l1 t1
     (Cons l2 t2
       (Cons l3 t3 Nil)
   ))
-else instance twoConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
+else
+instance twoConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
   (Cons l1 t1
     (Cons l2 t2 Nil)
   )
-else instance oneConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
+else
+instance oneConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
   (Cons l1 t1 Nil)
-else instance zeroConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
+else
+instance zeroConsLimitCountTen  :: LimitCount (Pos (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Z)))))))))))
   Nil
 
 class LimitCountTen (rl :: RowList)
